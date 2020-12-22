@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+    {% if movies.count > 0 %}
+        {% for movie in movies %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img class="card-img" src="{{movie.get_image_path}}" alt="">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <div class="card-title">
+                                        <a href="{% url 'detail' movie.id %}">
+                                            <h4>{{ movie.name }}</h4>
+                                        </a>
+                                        <h3>{{ movie.get_average_ratings }}</h3>
+                                    </div>
+                                    <div class="card-text">
+                                        <p>{{ movie.description }}</p>
+                                    </div>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            {{ movie.release_date }}
+                                        </small>
+                                    </p>
+                                    <h5>Comments</h5>
+                                    {% for comment in movie.get_comments %}
+                                    <div class="card-text">
+                                        <p class="text-muted">
+                                            {{ comment.user.username }}: {{ comment.comment }}
+                                        </p>
+                                    </div>
+                                    {% endfor %}
+                                    {% if loggedin %}
+                                        <a href="{% url 'detail' movie.id %}">
+                                            <h5>Yorum Yapın</h5>
+                                        </a>
+                                    {% else %}
+                                        <a href="{% url 'register' %}">
+                                            <h5>Yorum Yapmak için Üye Olun</h5>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-warning">
+            <p>
+                No movie
+            </p>
+        </div>
+    {% endif %}
+    <div class="card mb-2">
+
+    </div>
+{% endblock %}

@@ -1,0 +1,56 @@
+<header>
+        <div class="navbar navbar-expand-sm bg-info navbar-dark">
+            <div class="container">
+                <ul class="navbar-nav mr-auto">
+                    <li
+                        {% if request.path == '/' %}
+                            class="nav-item active"
+                        {% else %}
+                            class="nav-item"
+                        {% endif %}
+                    >
+                    <a href="{% url 'homepage' %}" class="nav-link">Home</a>
+                    </li>
+                <li
+                        {% if 'prev' in request.path %}
+                            class="nav-item active"
+                        {% else %}
+                            class="nav-item"
+                        {% endif %}
+                    >
+                <a href="{% url 'prev' %}" class="nav-link">Previous Weeks</a>
+                </li>
+                </ul>
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">({{ user.username }})Logout</a>
+                            <form action="{% url 'logout' %}" method="POST" id="logout">
+                                {% csrf_token %}
+                                    <input type="hidden">
+                            </form>
+                        </li>
+                    {% else %}
+                        <li
+                        {% if 'login' in request.path %}
+                            class="nav-item active"
+                        {% else %}
+                            class="nav-item"
+                        {% endif %}
+                        >
+                        <a href="{% url 'login' %}" class="nav-link">Login</a>
+                        </li>
+                        <li
+                        {% if 'register' in request.path %}
+                            class="nav-item active"
+                        {% else %}
+                            class="nav-item"
+                        {% endif %}
+                        >
+                        <a href="{% url 'register' %}" class="nav-link">Register</a>
+                        </li>
+                        {% endif %}
+                </ul>
+            </div>
+        </div>
+    </header>

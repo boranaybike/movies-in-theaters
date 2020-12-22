@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <h1>comment it!</h1>
+        {{ form.as_p }}
+        <input type="submit" value="submit">
+
+    </form>
+
+
+{% endblock %}

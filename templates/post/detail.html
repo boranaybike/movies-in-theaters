@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+            <p class="card-text">
+                {{ post.content }}
+            </p>
+            <p class="card-text">
+                <small class="text-muted">
+                    {{ post.publishing_date }}
+                </small>
+            </p>
+
+{% endblock %}
