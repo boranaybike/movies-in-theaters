@@ -12,4 +12,7 @@ class CommentModelForm(forms.ModelForm):
         "rows": 3,
         "cols": 120,
     }), label='', required=True)
-    rating = forms.IntegerField()
+
+    rating = forms.IntegerField(widget=forms.TextInput(attrs={
+        "class": "d-none"
+    }))

@@ -1,2 +1,11 @@
-Django
-django-crispy-forms
+asgiref==3.3.1
+certifi==2020.12.5
+chardet==4.0.0
+Django==3.1.4
+django-crispy-forms==1.10.0
+idna==2.10
+Pillow==8.0.1
+pytz==2020.4
+requests==2.25.1
+sqlparse==0.4.1
+urllib3==1.26.2

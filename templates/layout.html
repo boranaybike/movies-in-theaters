@@ -1,20 +1,26 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+	    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>movie project</title>
+    <title>movie project</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="{% static 'main.js' %}" defer></script>
+    <link rel="stylesheet" href=" {% static 'style.css' %}">
+
 </head>
-<body>
+<body style="background-color: #d2afe3 ">
     {% include 'partials/_navbar.html' %}
     <main>
-        {% include 'partials/_alert.html' %}
+         {% include 'partials/_alert.html' %}
         <div class="container mt-4">
             {% block content%}
             {% endblock %}
+
         </div>
     </main>
     {% include 'partials/_footer.html' %}

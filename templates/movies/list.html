@@ -1,51 +1,72 @@
 {% extends 'layout.html' %}
 {% load humanize %}
-{% load static %}
 
 {% block content %}
+    <div class="container">
+        <p class="lead">Discover, peruse , comment the movies in theaters!</p>
+    </div>
     {% if movies.count > 0 %}
-        {% for movie in movies %}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card mb-3">
-                        <div class="row">
+        {% for movie in page.object_list %}
+            <div class="col-md-9">
+                <div class="card mb-4">
+                    <div class="container">
+                        <div class="row  align-items-start">
                             <div class="col-md-3">
                                 <img class="card-img" src="{{movie.get_image_path}}" alt="">
                             </div>
-                            <div class="col-md-9">
-                                <div class="card-body">
+                            <div class="col-md-6">
+                                <div class="col-md-9">
                                     <div class="card-title">
+                                        <p class="card-text"></p>
                                         <a href="{% url 'detail' movie.id %}">
-                                            <h4>{{ movie.name }}</h4>
+                                            <h1 style=" font-size: 1.2rem">{{ movie.name }}</h1>
                                         </a>
-                                        <h3>{{ movie.get_average_ratings }}</h3>
+                                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                                        {% if movie.get_average_ratings >= 1 %}
+                                            <span class="fa fa-star my-btn checked "></span>
+                                            {% if movie.get_average_ratings >= 2 %}
+                                                <span class="fa fa-star my-btn checked "></span>
+                                                {% if movie.get_average_ratings >= 3 %}
+                                                    <span class="fa fa-star my-btn checked "></span>
+                                                    {% if movie.get_average_ratings >= 4 %}
+                                                        <span class="fa fa-star my-btn checked "></span>
+                                                        {% if movie.get_average_ratings >= 5 %}
+                                                            <span class="fa fa-star my-btn checked "></span>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                        <h2 style="font-size: 0.7rem">({{ movie.get_average_ratings }} average based on {{ movie.vote_number }} reviews.)</h2>
                                     </div>
                                     <div class="card-text">
-                                        <p>{{ movie.description }}</p>
+                                        <p style="font-size: 0.8rem">{{ movie.description|linebreaks|truncatechars:90 }}</p>
                                     </div>
-                                    <p class="card-text">
-                                        <small class="text-muted">
-                                            {{ movie.release_date }}
-                                        </small>
-                                    </p>
-                                    <h5>Comments</h5>
-                                    {% for comment in movie.get_comments %}
+                                        <p class="card-text">
+                                            <small class="text-muted">
+                                                {{ movie.release_date }}
+                                            </small>
+                                        </p>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h2 style="font-size: 0.9rem; color:brown;">Comments:</h2>
+                                {% for comment in movie.get_comments %}
                                     <div class="card-text">
-                                        <p class="text-muted">
+                                        <p style="font-size: 0.8rem" class="text-muted">
                                             {{ comment.user.username }}: {{ comment.comment }}
                                         </p>
                                     </div>
-                                    {% endfor %}
-                                    {% if loggedin %}
-                                        <a href="{% url 'detail' movie.id %}">
-                                            <h5>Yorum Yapın</h5>
-                                        </a>
-                                    {% else %}
-                                        <a href="{% url 'register' %}">
-                                            <h5>Yorum Yapmak için Üye Olun</h5>
-                                        </a>
-                                    {% endif %}
-                                </div>
+                                {% endfor %}
+                                {% if loggedin %}
+                                    <a href="{% url 'detail' movie.id %}">
+                                        <h2 style="font-size: 0.8rem">Comment</h2>
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'register' %}">
+                                        <h2 style="font-size: 0.8rem">Sign up to comment</h2>
+                                    </a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -59,7 +80,25 @@
             </p>
         </div>
     {% endif %}
+    <ul class="pagination">
+        <div class="container">
+            <div class="row  align-items-start">
+            {% if page.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}">prev</a></li>
+            {% endif %}
+            </div>
+        </div>
+        <div class="container">
+            <div class="row  align-items-start">
+                <span class="current">
+                    {{ page.number }} / {{ page.paginator.num_pages }}
+                </span>
+            </div>
+        </div>
+        {% if page.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page.next_page_number }}">next</a></li>
+        {% endif %}
+    </ul>
     <div class="card mb-2">
-
     </div>
 {% endblock %}

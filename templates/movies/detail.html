@@ -1,24 +1,57 @@
 {% extends 'layout.html' %}
+{% load crispy_forms_filters %}
 {% load static %}
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-3">
-            <img class="card-img" src="{{ movie.get_image_path }}" alt="">
-        </div>
-        <div class="col-md-9">
-            <h1>{{ movie.name }}</h1>
-            <hr>
-            <p>{{ movie.description }}</p>
-            <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <img class="card-img" src="{{ movie.get_image_path }}" alt="">
+            </div>
+            <div class="col-md-9">
+                <h1>{{ movie.name }}</h1>
+            <div class="col-md-9">
+                <hr>
+                <p>{{ movie.description }}</p>
+                <hr>
+
+                <h2 style="font-size: 0.9rem">Comments:</h2>
+                {% for comment in movie.get_comments %}
+                    <div class="card-text">
+                        <p style="font-size: 0.8rem" class="text-">
+                            {{ comment.user.username }}: {{ comment.comment }}
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+            </div>
+            </div>
             {% if isLoggedin %}
-            <form method="post" style="margin-top: 1.3em;">
+            <form method="post" style="margin-top: 1.5em;" id="rate_form">
+
                 {{ comment_form | crispy }}
                 {% csrf_token %}
-                <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
             </form>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                <form class="rate-form" action="" method="POST" id="{{ movie.id }}">
+                    {% csrf_token %}
+                    <button onclick="rate(1)" class="fa fa-star my-btn " id="first"></button>
+                    <button onclick="rate(2)" class="fa fa-star my-btn " id="second"></button>
+                    <button onclick="rate(3)" class="fa fa-star my-btn " id="third"></button>
+                    <button onclick="rate(4)" class="fa fa-star my-btn " id="fourth"></button>
+                    <button onclick="rate(5)" class="fa fa-star my-btn " id="fifth"></button>
+                </form>
+                <br>
+                <div id="confirm-box"></div>
             {% endif %}
-        </div>
     </div>
+
+    <script>
+     function rate(val){
+         document.getElementById("id_rating").value = val;
+        document.getElementById("rate_form").submit();
+     }
+
+    </script>
 {% endblock %}

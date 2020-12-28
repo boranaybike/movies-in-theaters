@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
-
-# Create your models here.
 
 class Movie(models.Model):
     name = models.CharField(max_length=150, verbose_name='movie name')
@@ -25,7 +24,14 @@ class Movie(models.Model):
         sum = 0
         for rating in ratings:
             sum += rating.rating
-        return sum / len(ratings) if len(ratings) > 0 else 0
+        return round((sum / len(ratings)),1) if len(ratings) > 0 else 0
+
+    def vote_number(self):
+        ratings = Comment.objects.filter(movie_id=self.id)
+        v_num = 0
+        for rating in ratings:
+            v_num += 1
+        return v_num
 
 
 class Comment(models.Model):
@@ -33,3 +39,4 @@ class Comment(models.Model):
     rating = models.PositiveSmallIntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+
