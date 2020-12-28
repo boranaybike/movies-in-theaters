@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="col-md-3">
+        <div class="card-text">
+            <img src="{{post.author.profile.profile_pic.url}}">
+        </div>
+    </div>
+
+</div>
+{% endblock %}
