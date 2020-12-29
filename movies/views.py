@@ -7,11 +7,6 @@ from .models import Movie, Comment
 from .forms import CommentModelForm
 from django.core.paginator import Paginator
 
-dt = date.today() - timedelta(7)
-prevDt = dt.strftime("%Y-%m-%d")
-today = date.today()
-todayStr = today.strftime("%Y-%m-%d")
-
 
 def index(request):
     movies = Movie.objects.filter(playing_now=True)

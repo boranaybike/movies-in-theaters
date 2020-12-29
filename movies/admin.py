@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Movie
+from .models import Movie, Comment
 
 class MovieAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'release_date', 'playing_now')
@@ -11,3 +11,11 @@ class MovieAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Movie, MovieAdmin)
+
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'comment', 'user_id', 'movie_id')
+    list_display_links = ('id', 'comment')
+
+
+admin.site.register(Comment, CommentAdmin)

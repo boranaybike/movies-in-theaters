@@ -2,8 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib import messages
+from django.core.files.storage import FileSystemStorage
 
-# Create your views here.
+
+def profile(request):
+    return render(request, 'user/profile.html')
+
 
 def login(request):
     if request.method == 'POST':
@@ -21,11 +25,13 @@ def login(request):
     else:
         return render(request, 'user/login.html')
 
+
 def logout(request):
     if request.method == 'POST':
         auth.logout(request)
         messages.add_message(request, messages.SUCCESS, 'loged out')
     return redirect('homepage')
+
 
 def register(request):
     if request.method == 'POST':
@@ -53,4 +59,3 @@ def register(request):
             return redirect('register')
     else:
         return render(request, 'user/register.html')
-
