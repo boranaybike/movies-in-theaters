@@ -20,7 +20,7 @@
                 {% for comment in movie.get_comments %}
                     <div class="card-text">
                         <p style="font-size: 0.8rem" class="text-">
-                            {{ comment.user.username }}: {{ comment.comment }}
+                            <a href="{% url 'profile' comment.user.id %}">{{ comment.user.username }}:</a>{{ comment.comment }}
                         </p>
                     </div>
                 {% endfor %}

@@ -1,6 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
 
 
 class Movie(models.Model):
@@ -24,7 +23,7 @@ class Movie(models.Model):
         sum = 0
         for rating in ratings:
             sum += rating.rating
-        return round((sum / len(ratings)),1) if len(ratings) > 0 else 0
+        return round((sum / len(ratings)), 1) if len(ratings) > 0 else 0
 
     def vote_number(self):
         ratings = Comment.objects.filter(movie_id=self.id)
@@ -40,3 +39,5 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
 
+    def get_movie(self):
+        return Movie.objects.filter(comment_id=self.id)

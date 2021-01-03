@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Movie, Comment
 
+
 class MovieAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'release_date', 'playing_now')
     list_display_links = ('id', 'name')

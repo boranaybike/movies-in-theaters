@@ -6,3 +6,9 @@
     background-color: inherit !important;
     border: 0 !important;
 }
+
+.grid {
+    display: grid;
+    grid-template-columns: 200px 200px;
+    gap: 30px;
+}

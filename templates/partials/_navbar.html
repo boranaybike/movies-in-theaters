@@ -30,7 +30,7 @@
                     </div>
                 </form>
                 <ul class="navbar-nav">
-                    {% if user.is_authenticated %}
+                    {% if request.user.is_authenticated %}
                         <li
                         {% if 'profile' in request.path %}
                             class="nav-item active"
@@ -38,7 +38,7 @@
                             class="nav-item"
                         {% endif %}
                         >
-                            <a href="{% url 'profile' %}" class="nav-link">{{ user.username }}</a></li>
+                            <a href="{% url 'profile' request.user.id %}" class="nav-link">{{ request.user.username }}</a></li>
                         <li>
                             <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">Logout</a>
                             <form action="{% url 'logout' %}" method="POST" id="logout">

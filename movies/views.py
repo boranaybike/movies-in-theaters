@@ -1,6 +1,8 @@
 import requests
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404, JsonResponse
+from user.models import Profile
 from . import config
 from datetime import date, timedelta, datetime
 from .models import Movie, Comment
