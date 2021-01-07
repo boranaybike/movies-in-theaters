@@ -41,7 +41,9 @@
         <div class="card border ">
             <div class="card-body d-flex">
                 <div class="mr-auto">
+                {% if profile.profile_pic %}
                     <img src="{{ profile.profile_pic.url }}" width="120" height="140" class="rounded-circle">
+                {% endif %}
                     {% if request.user.is_authenticated and request.user.id == user.id %}
                         <a href="{% url 'edit_profile' %}" class="btn btn-link" role="button">Edit Your
                             Profile</a>
