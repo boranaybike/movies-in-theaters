@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form method="post" style="margin-top: 1.5em;" id="edit_form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ edit_form | crispy }}
+    </form>
+    <input type='hidden' name='csrf_token'>
+    <input type='submit' value='Save' id="confirm-box" onclick="onSubmit()" />
+    <script>
+        function onSubmit(){
+            document.getElementById("edit_form").submit();
+        }
+    </script>
+
+{% endblock %}
