@@ -9,7 +9,7 @@ django-crispy-forms==1.10.0
 filelock==3.0.12
 google==3.0.0
 idna==2.10
-Pillow==8.0.1
+Pillow==8.1.1
 pytz==2020.4
 requests==2.25.1
 six==1.15.0
